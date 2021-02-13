@@ -25,78 +25,74 @@ class _HomeScreenState extends State<HomeScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<TodoTask>(
-        create: (context) => TodoTask(),
-
-        child: Scaffold(
-          appBar: AppBar(title: Text(kAppTitle)),
-          body: renderScreen(),
-          drawer: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                DrawerHeader(
-                  child: Text(
-                    kAppTitle,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.assignment),
-                  title: Text(kOptionTodo),
-                  onTap: () {
-                    Navigator.pop(context);
-                    changeBottomNavigationFromDrawer(0);
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.contact_phone),
-                  title: Text(kOptionContact),
-                  onTap: () {
-                    Navigator.pop(context);
-                    changeBottomNavigationFromDrawer(1);
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.call),
-                  title: Text(kOptionCall),
-                  onTap: () {
-                    Navigator.pop(context);
-                    changeBottomNavigationFromDrawer(2);
-                  },
-                ),
-              ],
+    return Scaffold(
+      appBar: AppBar(title: Text(kAppTitle)),
+      body: renderScreen(),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text(
+                kAppTitle,
+                style: TextStyle(color: Colors.white),
+              ),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
             ),
+            ListTile(
+              leading: Icon(Icons.assignment),
+              title: Text(kOptionTodo),
+              onTap: () {
+                Navigator.pop(context);
+                changeBottomNavigationFromDrawer(0);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.contact_phone),
+              title: Text(kOptionContact),
+              onTap: () {
+                Navigator.pop(context);
+                changeBottomNavigationFromDrawer(1);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.call),
+              title: Text(kOptionCall),
+              onTap: () {
+                Navigator.pop(context);
+                changeBottomNavigationFromDrawer(2);
+              },
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        key: globalKey,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.assignment),
+            label: kOptionTodo,
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            key: globalKey,
-
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.assignment),
-                label: kOptionTodo,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.contact_phone),
-                label: kOptionContact,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.call),
-                label: kOptionCall,
-              ),
-            ],
-            currentIndex: _currentPage,
-            selectedItemColor: Colors.blue[800],
-            onTap: (position) {
-              setState(() {
-                _currentPage = position;
-              });
-            },
+          BottomNavigationBarItem(
+            icon: Icon(Icons.contact_phone),
+            label: kOptionContact,
           ),
-        ));
+          BottomNavigationBarItem(
+            icon: Icon(Icons.call),
+            label: kOptionCall,
+          ),
+        ],
+        currentIndex: _currentPage,
+        selectedItemColor: Colors.blue[800],
+        onTap: (position) {
+          setState(() {
+            _currentPage = position;
+          });
+        },
+      ),
+    );
   }
 
   Widget renderScreen() {
@@ -107,13 +103,14 @@ class _HomeScreenState extends State<HomeScreen> {
           child: TodoScreen(),
         );
 
+        break;
       case 1:
 
         return ChangeNotifierProvider<ContactTask>(
           create: (context) => ContactTask(),
           child: ContactScreen(),
         );
-
+        break;
 
       case 2:
         return ChangeNotifierProvider<CallLogTask>(
@@ -128,6 +125,8 @@ class _HomeScreenState extends State<HomeScreen> {
           create: (context) => TodoTask(),
           child: TodoScreen(),
         );
+      break;
     }
   }
+
 }

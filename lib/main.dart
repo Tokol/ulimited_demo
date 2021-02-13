@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'data/todo_data.dart';
 import 'screen/home_screen.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DB.init();
